@@ -1,30 +1,39 @@
-import { useState } from "react";
+const board = { row1: ["", "", ""], row2: ["", "", ""], row3: ["", "", ""] };
 
-const [turn, setTurn] = useState("player1");
+let player1 = "x";
+let player2 = "o";
 
-const row = {
-  row1: ["", "", ""],
-  row2: ["", "", ""],
-  row3: ["", "", ""],
-};
-
-const newBoard = row;
-export const checkRows = (turn: string) => {
-  console.log(newBoard);
-
-  const isWinner = (currentValue: string) => currentValue === turn;
+const checkRows = (player: string) => {
+  const isWinner = (currentValue: string) => currentValue === player;
   if (
-    newBoard.row2.every(isWinner) ||
-    newBoard.row2.every(isWinner) ||
-    newBoard.row3.every(isWinner)
+    board?.row1.every(isWinner) ||
+    board?.row2.every(isWinner) ||
+    board?.row3.every(isWinner)
   ) {
     return true;
   }
 };
+const newBoard = { ...board };
 
-export const changeTurn = (turn: string) => {
-  return turn ? setTurn("player1") : setTurn("player2");
+const makeMove = (
+  board: any,
+  player: string,
+  placement: string[],
+  index: number
+) => {
+  const newRow = [...placement];
+  newRow[index] = player;
+ const updatedBoard = {
+    row1: placement === board.row1 ? newRow : board.row1,
+    row2: placement === board.row2 ? newRow : board.row2,
+    row3: placement === board.row3 ? newRow : board.row3,
+  };
+  return updatedBoard;
 };
-changeTurn(turn)
+let updatedBoard = (makeMove(newBoard, player1, newBoard.row2, 1));
+updatedBoard = (makeMove(updatedBoard, player1, updatedBoard.row2, 0));
+updatedBoard = (makeMove(updatedBoard, player1, updatedBoard.row1, 0));
+updatedBoard = (makeMove(updatedBoard, player2, updatedBoard.row3, 3));
+console.log(updatedBoard)
+const changeTurn = (player: string) => {};
 checkRows("x");
-console.log(turn)

@@ -1,5 +1,6 @@
 
 import { StyleSheet, Text, View } from "react-native";
+import StartGame from "./utils/functions";
 
 
 export default function App() {
@@ -7,7 +8,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <Text>Welcome!</Text>
-
+    <StartGame/>
     </View>
   );
 }
